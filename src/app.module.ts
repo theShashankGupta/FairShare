@@ -2,7 +2,8 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-
+import { UserModule } from './users/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -10,8 +11,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       database: 'fairShare.db',
       entities: ["dist/**/*.entity{.ts,.js}"],
       synchronize: true,
-  }),],
-  controllers: [AppController],
-  providers: [AppService],
+  }),
+  UserModule,
+  AuthModule,
+],
+  controllers: [AppController,],
+  providers: [AppService,],
 })
 export class AppModule {}
