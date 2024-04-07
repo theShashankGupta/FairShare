@@ -1,5 +1,8 @@
 // user.entity.ts
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMany } from 'typeorm';
+import { Group } from 'src/groups/groups.entity';
+import { GroupMembers } from 'src/groups/groupMembers/groupMember.entity';
+
 
 @Entity()
 export class User {
@@ -11,4 +14,10 @@ export class User {
 
   @Column()
   password: string;
+
+  @OneToMany(() => Group, (group) => group.owner)
+  groups: Group[];
+
+  @OneToMany(() => GroupMembers, (groupMember) => groupMember.user)
+  groupMember: GroupMembers[];
 }
